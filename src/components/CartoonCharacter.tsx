@@ -1,7 +1,7 @@
 
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Text, Sphere, Box, Cylinder } from '@react-three/drei'
+import { Text } from '@react-three/drei'
 import * as THREE from 'three'
 
 const CartoonCharacter = () => {
@@ -24,79 +24,96 @@ const CartoonCharacter = () => {
       scale={hovered ? 1.1 : 1}
     >
       {/* Head */}
-      <Sphere args={[0.5, 32, 32]} position={[0, 1.5, 0]}>
+      <mesh position={[0, 1.5, 0]}>
+        <sphereGeometry args={[0.5, 32, 32]} />
         <meshStandardMaterial color="#ffdbac" />
-      </Sphere>
+      </mesh>
 
       {/* Eyes */}
-      <Sphere args={[0.08, 16, 16]} position={[-0.15, 1.6, 0.4]}>
+      <mesh position={[-0.15, 1.6, 0.4]}>
+        <sphereGeometry args={[0.08, 16, 16]} />
         <meshStandardMaterial color="#ffffff" />
-      </Sphere>
-      <Sphere args={[0.08, 16, 16]} position={[0.15, 1.6, 0.4]}>
+      </mesh>
+      <mesh position={[0.15, 1.6, 0.4]}>
+        <sphereGeometry args={[0.08, 16, 16]} />
         <meshStandardMaterial color="#ffffff" />
-      </Sphere>
+      </mesh>
       
       {/* Eye pupils */}
-      <Sphere args={[0.04, 16, 16]} position={[-0.15, 1.6, 0.45]}>
+      <mesh position={[-0.15, 1.6, 0.45]}>
+        <sphereGeometry args={[0.04, 16, 16]} />
         <meshStandardMaterial color="#000000" />
-      </Sphere>
-      <Sphere args={[0.04, 16, 16]} position={[0.15, 1.6, 0.45]}>
+      </mesh>
+      <mesh position={[0.15, 1.6, 0.45]}>
+        <sphereGeometry args={[0.04, 16, 16]} />
         <meshStandardMaterial color="#000000" />
-      </Sphere>
+      </mesh>
 
       {/* Nose */}
-      <Sphere args={[0.03, 16, 16]} position={[0, 1.5, 0.45]}>
+      <mesh position={[0, 1.5, 0.45]}>
+        <sphereGeometry args={[0.03, 16, 16]} />
         <meshStandardMaterial color="#ffb8ac" />
-      </Sphere>
+      </mesh>
 
       {/* Body */}
-      <Cylinder args={[0.4, 0.35, 0.8, 32]} position={[0, 0.6, 0]}>
+      <mesh position={[0, 0.6, 0]}>
+        <cylinderGeometry args={[0.4, 0.35, 0.8, 32]} />
         <meshStandardMaterial color="#4299e1" />
-      </Cylinder>
+      </mesh>
 
       {/* Arms */}
-      <Cylinder args={[0.08, 0.08, 0.5, 16]} position={[-0.5, 0.8, 0]} rotation={[0, 0, 0.3]}>
+      <mesh position={[-0.5, 0.8, 0]} rotation={[0, 0, 0.3]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.5, 16]} />
         <meshStandardMaterial color="#ffdbac" />
-      </Cylinder>
-      <Cylinder args={[0.08, 0.08, 0.5, 16]} position={[0.5, 0.8, 0]} rotation={[0, 0, -0.3]}>
+      </mesh>
+      <mesh position={[0.5, 0.8, 0]} rotation={[0, 0, -0.3]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.5, 16]} />
         <meshStandardMaterial color="#ffdbac" />
-      </Cylinder>
+      </mesh>
 
       {/* Hands */}
-      <Sphere args={[0.1, 16, 16]} position={[-0.7, 0.6, 0]}>
+      <mesh position={[-0.7, 0.6, 0]}>
+        <sphereGeometry args={[0.1, 16, 16]} />
         <meshStandardMaterial color="#ffdbac" />
-      </Sphere>
-      <Sphere args={[0.1, 16, 16]} position={[0.7, 0.6, 0]}>
+      </mesh>
+      <mesh position={[0.7, 0.6, 0]}>
+        <sphereGeometry args={[0.1, 16, 16]} />
         <meshStandardMaterial color="#ffdbac" />
-      </Sphere>
+      </mesh>
 
       {/* Legs */}
-      <Cylinder args={[0.1, 0.1, 0.6, 16]} position={[-0.15, -0.1, 0]}>
+      <mesh position={[-0.15, -0.1, 0]}>
+        <cylinderGeometry args={[0.1, 0.1, 0.6, 16]} />
         <meshStandardMaterial color="#2d3748" />
-      </Cylinder>
-      <Cylinder args={[0.1, 0.1, 0.6, 16]} position={[0.15, -0.1, 0]}>
+      </mesh>
+      <mesh position={[0.15, -0.1, 0]}>
+        <cylinderGeometry args={[0.1, 0.1, 0.6, 16]} />
         <meshStandardMaterial color="#2d3748" />
-      </Cylinder>
+      </mesh>
 
       {/* Feet */}
-      <Box args={[0.2, 0.1, 0.3]} position={[-0.15, -0.45, 0.1]}>
+      <mesh position={[-0.15, -0.45, 0.1]}>
+        <boxGeometry args={[0.2, 0.1, 0.3]} />
         <meshStandardMaterial color="#000000" />
-      </Box>
-      <Box args={[0.2, 0.1, 0.3]} position={[0.15, -0.45, 0.1]}>
+      </mesh>
+      <mesh position={[0.15, -0.45, 0.1]}>
+        <boxGeometry args={[0.2, 0.1, 0.3]} />
         <meshStandardMaterial color="#000000" />
-      </Box>
+      </mesh>
 
       {/* Hair */}
-      <Sphere args={[0.45, 32, 32]} position={[0, 1.8, -0.1]}>
+      <mesh position={[0, 1.8, -0.1]}>
+        <sphereGeometry args={[0.45, 32, 32]} />
         <meshStandardMaterial color="#8b4513" />
-      </Sphere>
+      </mesh>
 
       {/* Speech bubble */}
       {hovered && (
         <group position={[1.2, 1.8, 0]}>
-          <Sphere args={[0.8, 32, 32]}>
+          <mesh>
+            <sphereGeometry args={[0.8, 32, 32]} />
             <meshStandardMaterial color="#ffffff" transparent opacity={0.9} />
-          </Sphere>
+          </mesh>
           <Text
             position={[0, 0.1, 0.1]}
             fontSize={0.12}
