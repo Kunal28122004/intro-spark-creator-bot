@@ -1,11 +1,33 @@
 
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Environment, Text } from '@react-three/drei'
-import { Suspense } from 'react'
-import CartoonCharacter from './CartoonCharacter'
+import { OrbitControls, Environment } from '@react-three/drei'
+import { Suspense, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import RealisticCharacter from './RealisticCharacter'
+import Airplane from './Airplane'
 import { Button } from '@/components/ui/button'
 
 const Portfolio3DIntro = () => {
+  const navigate = useNavigate()
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [animationType, setAnimationType] = useState<'phone' | 'plane' | null>(null)
+
+  const handleNavigation = (path: string) => {
+    console.log(`${path} clicked`)
+    setIsAnimating(true)
+    setAnimationType('phone')
+    
+    // Phone call animation
+    setTimeout(() => {
+      setAnimationType('plane')
+    }, 2000)
+    
+    // Navigate after plane animation
+    setTimeout(() => {
+      navigate(path)
+    }, 4000)
+  }
+
   return (
     <div className="h-screen w-full bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 relative">
       <Canvas 
@@ -15,10 +37,10 @@ const Portfolio3DIntro = () => {
       >
         <Suspense fallback={null}>
           {/* Enhanced Lighting */}
-          <ambientLight intensity={1.2} />
+          <ambientLight intensity={1.5} />
           <directionalLight 
             position={[10, 10, 10]} 
-            intensity={2} 
+            intensity={2.5} 
             castShadow 
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
@@ -28,8 +50,8 @@ const Portfolio3DIntro = () => {
             shadow-camera-top={10}
             shadow-camera-bottom={-10}
           />
-          <pointLight position={[-5, 5, 5]} color="#ff6b6b" intensity={1} />
-          <pointLight position={[5, -2, -2]} color="#4299e1" intensity={1} />
+          <pointLight position={[-5, 5, 5]} color="#ff6b6b" intensity={1.2} />
+          <pointLight position={[5, -2, -2]} color="#4299e1" intensity={1.2} />
           
           {/* Environment */}
           <Environment preset="sunset" />
@@ -37,24 +59,27 @@ const Portfolio3DIntro = () => {
           {/* Ground plane for shadows */}
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
             <planeGeometry args={[20, 20]} />
-            <meshStandardMaterial color="#f0f0f0" transparent opacity={0.1} />
+            <meshStandardMaterial color="#f0f0f0" transparent opacity={0.15} />
           </mesh>
           
-          {/* Cartoon Character - positioned prominently */}
-          <CartoonCharacter />
+          {/* Realistic Character */}
+          <RealisticCharacter isAnimating={isAnimating} animationType={animationType} />
+          
+          {/* Airplane */}
+          <Airplane isFlying={animationType === 'plane'} targetPosition={[2.5, 3, 0]} />
           
           {/* Enhanced floating particles */}
-          {Array.from({ length: 15 }).map((_, i) => (
+          {Array.from({ length: 20 }).map((_, i) => (
             <mesh key={i} position={[
-              (Math.random() - 0.5) * 12,
-              (Math.random() - 0.5) * 10 + 3,
-              (Math.random() - 0.5) * 8
+              (Math.random() - 0.5) * 15,
+              (Math.random() - 0.5) * 12 + 4,
+              (Math.random() - 0.5) * 10
             ]} castShadow>
-              <sphereGeometry args={[0.03, 8, 8]} />
+              <sphereGeometry args={[0.04, 8, 8]} />
               <meshStandardMaterial 
                 color={Math.random() > 0.5 ? "#ffd700" : "#ff6b6b"} 
                 emissive={Math.random() > 0.5 ? "#ffd700" : "#ff6b6b"}
-                emissiveIntensity={0.3}
+                emissiveIntensity={0.4}
               />
             </mesh>
           ))}
@@ -85,29 +110,33 @@ const Portfolio3DIntro = () => {
         {/* Navigation buttons */}
         <div className="space-y-4">
           <Button 
-            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
-            onClick={() => console.log('Enter My World clicked')}
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+            onClick={() => handleNavigation('/about')}
+            disabled={isAnimating}
           >
             Enter My World
           </Button>
           
           <Button 
-            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
-            onClick={() => console.log('Meet My Projects clicked')}
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+            onClick={() => handleNavigation('/projects')}
+            disabled={isAnimating}
           >
             Meet My Projects
           </Button>
           
           <Button 
-            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
-            onClick={() => console.log('Accomplishments clicked')}
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+            onClick={() => handleNavigation('/accomplishments')}
+            disabled={isAnimating}
           >
             Accomplishments
           </Button>
           
           <Button 
-            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
-            onClick={() => console.log('About Me clicked')}
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+            onClick={() => handleNavigation('/about')}
+            disabled={isAnimating}
           >
             About Me
           </Button>
@@ -118,7 +147,10 @@ const Portfolio3DIntro = () => {
       <div className="absolute top-8 right-8 text-white text-sm bg-black bg-opacity-20 p-3 rounded-lg backdrop-blur-sm">
         <p>🖱️ Drag to rotate view</p>
         <p>🔍 Scroll to zoom</p>
-        <p>👆 Hover character for intro</p>
+        <p>📱 Click buttons to call & fly!</p>
+        {isAnimating && (
+          <p className="text-yellow-300 font-bold">✈️ Animation in progress...</p>
+        )}
       </div>
     </div>
   )
