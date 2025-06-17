@@ -25,7 +25,7 @@ const CartoonCharacter = () => {
       position={[0, 0, 0]}
     >
       {/* Head */}
-      <mesh position={[0, 1.5, 0]}>
+      <mesh position={[0, 1.5, 0]} castShadow>
         <sphereGeometry args={[0.6, 32, 32]} />
         <meshStandardMaterial color="#ffdbac" />
       </mesh>
@@ -79,7 +79,7 @@ const CartoonCharacter = () => {
       </mesh>
 
       {/* Body */}
-      <mesh position={[0, 0.6, 0]}>
+      <mesh position={[0, 0.6, 0]} castShadow>
         <cylinderGeometry args={[0.5, 0.4, 1, 32]} />
         <meshStandardMaterial color="#4299e1" />
       </mesh>
@@ -157,10 +157,10 @@ const CartoonCharacter = () => {
         </group>
       )}
 
-      {/* Laptop accessory */}
+      {/* Laptop accessory - fixed the silver color issue */}
       <mesh position={[0.3, 0.8, 0.4]} rotation={[-0.2, 0, 0]}>
         <boxGeometry args={[0.3, 0.02, 0.2]} />
-        <meshStandardMaterial color="#silver" />
+        <meshStandardMaterial color="#c0c0c0" />
       </mesh>
       <mesh position={[0.3, 0.9, 0.3]} rotation={[-0.5, 0, 0]}>
         <boxGeometry args={[0.3, 0.2, 0.02]} />
