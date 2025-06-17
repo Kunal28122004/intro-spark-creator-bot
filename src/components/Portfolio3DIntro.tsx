@@ -3,10 +3,11 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment, Text } from '@react-three/drei'
 import { Suspense } from 'react'
 import CartoonCharacter from './CartoonCharacter'
+import { Button } from '@/components/ui/button'
 
 const Portfolio3DIntro = () => {
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
+    <div className="h-screen w-full bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 relative">
       <Canvas 
         camera={{ position: [0, 2, 8], fov: 60 }}
         shadows
@@ -36,67 +37,26 @@ const Portfolio3DIntro = () => {
           {/* Ground plane for shadows */}
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
             <planeGeometry args={[20, 20]} />
-            <meshStandardMaterial color="#f0f0f0" transparent opacity={0.3} />
+            <meshStandardMaterial color="#f0f0f0" transparent opacity={0.1} />
           </mesh>
-          
-          {/* Main title */}
-          <Text
-            position={[0, 5, 0]}
-            fontSize={1}
-            color="#ffffff"
-            anchorX="center"
-            anchorY="middle"
-            font="/fonts/bold.woff"
-          >
-            Welcome to My Portfolio
-          </Text>
-          
-          {/* Subtitle */}
-          <Text
-            position={[0, 4.2, 0]}
-            fontSize={0.4}
-            color="#f0f0f0"
-            anchorX="center"
-            anchorY="middle"
-          >
-            Full-Stack Developer & Creative Problem Solver
-          </Text>
           
           {/* Cartoon Character - positioned prominently */}
           <CartoonCharacter />
           
           {/* Enhanced floating particles */}
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 15 }).map((_, i) => (
             <mesh key={i} position={[
-              (Math.random() - 0.5) * 15,
-              (Math.random() - 0.5) * 12 + 3,
-              (Math.random() - 0.5) * 10
+              (Math.random() - 0.5) * 12,
+              (Math.random() - 0.5) * 10 + 3,
+              (Math.random() - 0.5) * 8
             ]} castShadow>
-              <sphereGeometry args={[0.05, 8, 8]} />
+              <sphereGeometry args={[0.03, 8, 8]} />
               <meshStandardMaterial 
                 color={Math.random() > 0.5 ? "#ffd700" : "#ff6b6b"} 
                 emissive={Math.random() > 0.5 ? "#ffd700" : "#ff6b6b"}
-                emissiveIntensity={0.5}
+                emissiveIntensity={0.3}
               />
             </mesh>
-          ))}
-          
-          {/* Code symbols floating around */}
-          {['{ }', '< >', '[ ]', '( )', '/>', '='].map((symbol, i) => (
-            <Text
-              key={symbol}
-              position={[
-                Math.cos(i * Math.PI / 3) * 5,
-                Math.sin(i * Math.PI / 3) * 3 + 3,
-                Math.sin(i * Math.PI / 4) * 4
-              ]}
-              fontSize={0.4}
-              color="#ffffff"
-              anchorX="center"
-              anchorY="middle"
-            >
-              {symbol}
-            </Text>
           ))}
           
           {/* Controls */}
@@ -104,21 +64,54 @@ const Portfolio3DIntro = () => {
             enablePan={false} 
             enableZoom={true}
             minDistance={4}
-            maxDistance={15}
+            maxDistance={12}
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 6}
           />
         </Suspense>
       </Canvas>
       
-      {/* UI Overlay */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-        <p className="text-white text-lg mb-4 animate-pulse">
-          Hover over the character to learn more about me!
-        </p>
-        <button className="bg-white text-gray-800 px-6 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg">
-          Explore My Work
-        </button>
+      {/* Left side content with Gujarati text */}
+      <div className="absolute top-1/2 left-8 transform -translate-y-1/2 text-white z-10">
+        <div className="mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+            Hey! Hu rahiyo chu<br />
+            Aniket! 👋 Mari journey<br />
+            explore karvan a<br />
+            taiyaar cho?
+          </h1>
+        </div>
+        
+        {/* Navigation buttons */}
+        <div className="space-y-4">
+          <Button 
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
+            onClick={() => console.log('Enter My World clicked')}
+          >
+            Enter My World
+          </Button>
+          
+          <Button 
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
+            onClick={() => console.log('Meet My Projects clicked')}
+          >
+            Meet My Projects
+          </Button>
+          
+          <Button 
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
+            onClick={() => console.log('Accomplishments clicked')}
+          >
+            Accomplishments
+          </Button>
+          
+          <Button 
+            className="w-64 h-12 text-lg font-semibold bg-white text-blue-900 hover:bg-gray-100 rounded-full shadow-lg"
+            onClick={() => console.log('About Me clicked')}
+          >
+            About Me
+          </Button>
+        </div>
       </div>
       
       {/* Instructions */}

@@ -11,8 +11,8 @@ const CartoonCharacter = () => {
   useFrame((state) => {
     if (characterRef.current) {
       // Gentle floating animation
-      characterRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1
-      characterRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.05
+      characterRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.1
+      characterRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.03
     }
   })
 
@@ -22,12 +22,12 @@ const CartoonCharacter = () => {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       scale={hovered ? 1.1 : 1}
-      position={[0, -0.5, 0]}
+      position={[2.5, -0.5, 0]}
     >
       {/* Head */}
       <mesh position={[0, 2, 0]} castShadow receiveShadow>
         <sphereGeometry args={[0.8, 32, 32]} />
-        <meshStandardMaterial color="#ffdbac" />
+        <meshStandardMaterial color="#fdbcb4" />
       </mesh>
 
       {/* Eyes */}
@@ -50,16 +50,37 @@ const CartoonCharacter = () => {
         <meshStandardMaterial color="#000000" />
       </mesh>
 
+      {/* Glasses frame */}
+      <mesh position={[-0.25, 2.2, 0.72]} castShadow>
+        <torusGeometry args={[0.15, 0.02, 8, 16]} />
+        <meshStandardMaterial color="#333333" />
+      </mesh>
+      <mesh position={[0.25, 2.2, 0.72]} castShadow>
+        <torusGeometry args={[0.15, 0.02, 8, 16]} />
+        <meshStandardMaterial color="#333333" />
+      </mesh>
+      {/* Glasses bridge */}
+      <mesh position={[0, 2.2, 0.72]} rotation={[0, 0, Math.PI / 2]} castShadow>
+        <cylinderGeometry args={[0.015, 0.015, 0.15, 8]} />
+        <meshStandardMaterial color="#333333" />
+      </mesh>
+
+      {/* Beard */}
+      <mesh position={[0, 1.6, 0.4]} castShadow>
+        <sphereGeometry args={[0.35, 16, 16]} />
+        <meshStandardMaterial color="#2d1810" />
+      </mesh>
+
+      {/* Mustache */}
+      <mesh position={[0, 1.85, 0.65]} rotation={[0, 0, 0]} castShadow>
+        <sphereGeometry args={[0.15, 16, 8]} />
+        <meshStandardMaterial color="#2d1810" />
+      </mesh>
+
       {/* Nose */}
       <mesh position={[0, 1.9, 0.7]} castShadow>
         <sphereGeometry args={[0.05, 16, 16]} />
-        <meshStandardMaterial color="#ffb8ac" />
-      </mesh>
-
-      {/* Mouth - smile */}
-      <mesh position={[0, 1.7, 0.7]} rotation={[0, 0, 0]} castShadow>
-        <torusGeometry args={[0.15, 0.03, 8, 16, Math.PI]} />
-        <meshStandardMaterial color="#ff6b6b" />
+        <meshStandardMaterial color="#e8a598" />
       </mesh>
 
       {/* Hair */}
@@ -68,88 +89,83 @@ const CartoonCharacter = () => {
         <meshStandardMaterial color="#2d1810" />
       </mesh>
 
-      {/* Body */}
+      {/* Body - teal jacket */}
       <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.6, 0.5, 1.2, 32]} />
-        <meshStandardMaterial color="#4299e1" />
+        <meshStandardMaterial color="#2d7d78" />
+      </mesh>
+
+      {/* White shirt underneath */}
+      <mesh position={[0, 1.1, 0.45]} castShadow>
+        <cylinderGeometry args={[0.4, 0.35, 0.6, 32]} />
+        <meshStandardMaterial color="#ffffff" />
       </mesh>
 
       {/* Arms */}
       <mesh position={[-0.8, 1.2, 0]} rotation={[0, 0, 0.4]} castShadow>
         <cylinderGeometry args={[0.12, 0.12, 0.8, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
+        <meshStandardMaterial color="#2d7d78" />
       </mesh>
       <mesh position={[0.8, 1.2, 0]} rotation={[0, 0, -0.4]} castShadow>
         <cylinderGeometry args={[0.12, 0.12, 0.8, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
+        <meshStandardMaterial color="#2d7d78" />
       </mesh>
 
-      {/* Hands */}
+      {/* Hands - one waving */}
       <mesh position={[-1.0, 0.9, 0]} castShadow>
         <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
+        <meshStandardMaterial color="#fdbcb4" />
       </mesh>
-      <mesh position={[1.0, 0.9, 0]} castShadow>
+      <mesh position={[1.0, 0.9, 0]} rotation={[0, 0, 0.3]} castShadow>
         <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial color="#ffdbac" />
+        <meshStandardMaterial color="#fdbcb4" />
       </mesh>
 
-      {/* Legs */}
+      {/* Legs - dark blue pants */}
       <mesh position={[-0.25, -0.3, 0]} castShadow>
         <cylinderGeometry args={[0.15, 0.15, 1, 16]} />
-        <meshStandardMaterial color="#2d3748" />
+        <meshStandardMaterial color="#1e3a8a" />
       </mesh>
       <mesh position={[0.25, -0.3, 0]} castShadow>
         <cylinderGeometry args={[0.15, 0.15, 1, 16]} />
-        <meshStandardMaterial color="#2d3748" />
+        <meshStandardMaterial color="#1e3a8a" />
       </mesh>
 
-      {/* Feet */}
+      {/* Shoes - brown */}
       <mesh position={[-0.25, -0.9, 0.15]} castShadow>
         <boxGeometry args={[0.3, 0.15, 0.4]} />
-        <meshStandardMaterial color="#000000" />
+        <meshStandardMaterial color="#8b4513" />
       </mesh>
       <mesh position={[0.25, -0.9, 0.15]} castShadow>
         <boxGeometry args={[0.3, 0.15, 0.4]} />
-        <meshStandardMaterial color="#000000" />
+        <meshStandardMaterial color="#8b4513" />
       </mesh>
 
       {/* Speech bubble */}
       {hovered && (
-        <group position={[2, 2.5, 0]}>
+        <group position={[1.5, 2.5, 0]}>
           <mesh castShadow>
-            <sphereGeometry args={[1.2, 32, 32]} />
+            <sphereGeometry args={[1, 32, 32]} />
             <meshStandardMaterial color="#ffffff" transparent opacity={0.95} />
           </mesh>
-          <mesh position={[-0.8, -0.6, 0]} rotation={[0, 0, Math.PI / 4]} castShadow>
-            <coneGeometry args={[0.2, 0.4, 8]} />
+          <mesh position={[-0.6, -0.5, 0]} rotation={[0, 0, Math.PI / 4]} castShadow>
+            <coneGeometry args={[0.15, 0.3, 8]} />
             <meshStandardMaterial color="#ffffff" />
           </mesh>
           <Text
-            position={[0, 0.3, 0.1]}
-            fontSize={0.18}
+            position={[0, 0.2, 0.1]}
+            fontSize={0.15}
             color="#333333"
             anchorX="center"
             anchorY="middle"
-            maxWidth={2}
+            maxWidth={1.8}
           >
-            Hello! I'm a passionate full-stack developer
-            who loves creating innovative solutions.
-            I specialize in React, Node.js, and 3D web experiences.
-            Let's build something amazing together!
+            Hello! I'm Aniket, a passionate full-stack developer.
+            Welcome to my digital world! Let's explore
+            my journey together.
           </Text>
         </group>
       )}
-
-      {/* Laptop accessory */}
-      <mesh position={[0.4, 1, 0.5]} rotation={[-0.2, 0, 0]} castShadow>
-        <boxGeometry args={[0.4, 0.03, 0.25]} />
-        <meshStandardMaterial color="#c0c0c0" />
-      </mesh>
-      <mesh position={[0.4, 1.1, 0.35]} rotation={[-0.5, 0, 0]} castShadow>
-        <boxGeometry args={[0.4, 0.25, 0.03]} />
-        <meshStandardMaterial color="#1a1a1a" />
-      </mesh>
     </group>
   )
 }
