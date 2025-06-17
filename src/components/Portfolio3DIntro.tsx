@@ -7,21 +7,42 @@ import CartoonCharacter from './CartoonCharacter'
 const Portfolio3DIntro = () => {
   return (
     <div className="h-screen w-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
-      <Canvas camera={{ position: [0, 1, 6], fov: 60 }}>
+      <Canvas 
+        camera={{ position: [0, 2, 8], fov: 60 }}
+        shadows
+        gl={{ antialias: true }}
+      >
         <Suspense fallback={null}>
           {/* Enhanced Lighting */}
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
-          <pointLight position={[-5, 2, 2]} color="#ff6b6b" intensity={0.6} />
-          <pointLight position={[5, -2, -2]} color="#4299e1" intensity={0.6} />
+          <ambientLight intensity={1.2} />
+          <directionalLight 
+            position={[10, 10, 10]} 
+            intensity={2} 
+            castShadow 
+            shadow-mapSize-width={2048}
+            shadow-mapSize-height={2048}
+            shadow-camera-far={50}
+            shadow-camera-left={-10}
+            shadow-camera-right={10}
+            shadow-camera-top={10}
+            shadow-camera-bottom={-10}
+          />
+          <pointLight position={[-5, 5, 5]} color="#ff6b6b" intensity={1} />
+          <pointLight position={[5, -2, -2]} color="#4299e1" intensity={1} />
           
           {/* Environment */}
           <Environment preset="sunset" />
           
+          {/* Ground plane for shadows */}
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
+            <planeGeometry args={[20, 20]} />
+            <meshStandardMaterial color="#f0f0f0" transparent opacity={0.3} />
+          </mesh>
+          
           {/* Main title */}
           <Text
-            position={[0, 4, 0]}
-            fontSize={0.8}
+            position={[0, 5, 0]}
+            fontSize={1}
             color="#ffffff"
             anchorX="center"
             anchorY="middle"
@@ -32,8 +53,8 @@ const Portfolio3DIntro = () => {
           
           {/* Subtitle */}
           <Text
-            position={[0, 3.3, 0]}
-            fontSize={0.35}
+            position={[0, 4.2, 0]}
+            fontSize={0.4}
             color="#f0f0f0"
             anchorX="center"
             anchorY="middle"
@@ -45,17 +66,17 @@ const Portfolio3DIntro = () => {
           <CartoonCharacter />
           
           {/* Enhanced floating particles */}
-          {Array.from({ length: 30 }).map((_, i) => (
+          {Array.from({ length: 20 }).map((_, i) => (
             <mesh key={i} position={[
-              (Math.random() - 0.5) * 12,
-              (Math.random() - 0.5) * 10,
+              (Math.random() - 0.5) * 15,
+              (Math.random() - 0.5) * 12 + 3,
               (Math.random() - 0.5) * 10
-            ]}>
-              <sphereGeometry args={[0.03, 8, 8]} />
+            ]} castShadow>
+              <sphereGeometry args={[0.05, 8, 8]} />
               <meshStandardMaterial 
                 color={Math.random() > 0.5 ? "#ffd700" : "#ff6b6b"} 
                 emissive={Math.random() > 0.5 ? "#ffd700" : "#ff6b6b"}
-                emissiveIntensity={0.3}
+                emissiveIntensity={0.5}
               />
             </mesh>
           ))}
@@ -65,11 +86,11 @@ const Portfolio3DIntro = () => {
             <Text
               key={symbol}
               position={[
-                Math.cos(i * Math.PI / 3) * 4,
-                Math.sin(i * Math.PI / 3) * 2 + 2,
-                Math.sin(i * Math.PI / 4) * 3
+                Math.cos(i * Math.PI / 3) * 5,
+                Math.sin(i * Math.PI / 3) * 3 + 3,
+                Math.sin(i * Math.PI / 4) * 4
               ]}
-              fontSize={0.3}
+              fontSize={0.4}
               color="#ffffff"
               anchorX="center"
               anchorY="middle"
@@ -82,8 +103,8 @@ const Portfolio3DIntro = () => {
           <OrbitControls 
             enablePan={false} 
             enableZoom={true}
-            minDistance={3}
-            maxDistance={10}
+            minDistance={4}
+            maxDistance={15}
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 6}
           />
