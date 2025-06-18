@@ -1,4 +1,3 @@
-
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
@@ -84,7 +83,7 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
             color="#fdbcb4" 
             roughness={0.7} 
             metalness={0.1}
-            normalScale={[0.1, 0.1]}
+            normalScale={new THREE.Vector2(0.1, 0.1)}
           />
         </mesh>
 

@@ -64,7 +64,6 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
           color="#e8e8e8" 
           metalness={0.7} 
           roughness={0.2}
-          clearcoat={0.5}
         />
       </mesh>
       
@@ -75,7 +74,6 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
           color="#d0d0d0" 
           metalness={0.8} 
           roughness={0.1}
-          clearcoat={0.8}
         />
       </mesh>
       
@@ -86,7 +84,6 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
           color="#c8c8c8" 
           metalness={0.6} 
           roughness={0.3}
-          clearcoat={0.4}
         />
       </mesh>
       
@@ -162,7 +159,6 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
           opacity={0.8} 
           metalness={0.1} 
           roughness={0.05}
-          clearcoat={0.9}
         />
       </mesh>
       <mesh position={[-0.1, 0.8, 0.1]} castShadow>
@@ -173,7 +169,6 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
           opacity={0.8} 
           metalness={0.1} 
           roughness={0.05}
-          clearcoat={0.9}
         />
       </mesh>
       
