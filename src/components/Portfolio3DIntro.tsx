@@ -1,3 +1,4 @@
+
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { Suspense, useState } from 'react'
@@ -134,14 +135,15 @@ const Portfolio3DIntro = () => {
         </Suspense>
       </Canvas>
       
-      {/* Enhanced Left side content with Gujarati text */}
+      {/* Enhanced Left side content with updated text */}
       <div className="absolute top-1/2 left-8 transform -translate-y-1/2 text-white z-10">
         <div className="mb-8 animate-fade-in">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
-            Hey! Hu rahiyo chu<br />
-            Aniket! 👋 Mari journey<br />
-            explore karvan a<br />
-            taiyaar cho?
+            Hi, I'm Kunal - a passionate<br />
+            developer from Gujarat, India,<br />
+            crafting meaningful digital<br />
+            experiences that leave a<br />
+            lasting impact.
           </h1>
         </div>
         

@@ -17,33 +17,30 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
 
     if (planeRef.current) {
       if (isFlying) {
-        // Much more visible entrance animation
-        const progress = Math.min(time * 0.8, 1)
+        // Horizontal flight animation to top left
+        const progress = Math.min(time * 0.6, 1)
         setFlyProgress(progress)
         
-        // Dramatic flight pattern starting from far away
-        const entranceDistance = 25
-        const spiralRadius = 3 + Math.sin(time * 0.8) * 1
+        // Start from character position and fly horizontally to top left
+        const startX = 3
+        const startY = 3
+        const startZ = 0
         
-        // Start from very far and fly in dramatically
-        const startX = entranceDistance
-        const startY = 10
-        const startZ = -entranceDistance
+        const endX = -15  // Far left
+        const endY = 8    // Higher up
+        const endZ = -5   // Slightly back
         
-        const targetX = targetPosition[0] + Math.sin(time * 1.5) * spiralRadius
-        const targetY = targetPosition[1] + Math.sin(time * 1.2) * 0.8 + Math.cos(time * 2) * 0.5
-        const targetZ = targetPosition[2] + Math.cos(time * 1.5) * spiralRadius
+        // Smooth horizontal flight path
+        planeRef.current.position.x = startX + (endX - startX) * progress
+        planeRef.current.position.y = startY + (endY - startY) * progress + Math.sin(progress * Math.PI * 2) * 0.5
+        planeRef.current.position.z = startZ + (endZ - startZ) * progress
         
-        planeRef.current.position.x = startX * (1 - progress) + targetX * progress
-        planeRef.current.position.y = startY * (1 - progress) + targetY * progress
-        planeRef.current.position.z = startZ * (1 - progress) + targetZ * progress
+        // Keep airplane horizontal orientation
+        planeRef.current.rotation.x = 0
+        planeRef.current.rotation.y = -Math.PI / 2 // Point left
+        planeRef.current.rotation.z = Math.sin(time * 3) * 0.1 // Slight banking
         
-        // Enhanced banking and aerobatic maneuvers
-        planeRef.current.rotation.z = Math.sin(time * 2) * 0.6 * progress
-        planeRef.current.rotation.y = -Math.PI / 2 + time * 1.5 * progress + Math.sin(time * 1.2) * 0.4
-        planeRef.current.rotation.x = Math.sin(time * 2.2) * 0.3 * progress
-        
-        // Scale for dramatic effect
+        // Scale grows as it flies
         planeRef.current.scale.setScalar(0.5 + progress * 1.5)
       } else {
         // Reset position when not flying
