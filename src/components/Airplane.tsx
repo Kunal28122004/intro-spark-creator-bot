@@ -1,5 +1,5 @@
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -10,6 +10,7 @@ interface AirplaneProps {
 
 const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
   const planeRef = useRef<THREE.Group>(null)
+  const [propellerRotation, setPropellerRotation] = useState(0)
 
   useFrame((state) => {
     if (planeRef.current && isFlying) {
@@ -21,6 +22,9 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
       planeRef.current.rotation.z = Math.sin(time * 0.5) * 0.1
       planeRef.current.rotation.y = time * 0.5
     }
+    
+    // Update propeller rotation
+    setPropellerRotation(state.clock.elapsedTime * 20)
   })
 
   if (!isFlying) return null
@@ -58,7 +62,7 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
       </mesh>
       
       {/* Propeller */}
-      <mesh position={[0, 1.3, 0]} rotation={[0, state.clock.elapsedTime * 20, 0]} castShadow>
+      <mesh position={[0, 1.3, 0]} rotation={[0, propellerRotation, 0]} castShadow>
         <boxGeometry args={[0.8, 0.02, 0.02]} />
         <meshStandardMaterial color="#8b4513" />
       </mesh>
