@@ -1,4 +1,3 @@
-
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -12,51 +11,54 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
   const planeRef = useRef<THREE.Group>(null)
   const [propellerRotation, setPropellerRotation] = useState(0)
   const [flyProgress, setFlyProgress] = useState(0)
-  const [smokeTrails] = useState(
-    Array.from({ length: 10 }, (_, i) => ({
-      id: i,
-      position: new THREE.Vector3(),
-      opacity: 1
-    }))
-  )
 
   useFrame((state) => {
     const time = state.clock.elapsedTime
 
-    if (planeRef.current && isFlying) {
-      // Enhanced dramatic entrance
-      const progress = Math.min((time - 3) * 0.6, 1)
-      setFlyProgress(progress)
-      
-      // More dramatic flight pattern with loops and curves
-      const spiralRadius = 2 + Math.sin(time * 0.5) * 0.5
-      const baseX = targetPosition[0] + Math.sin(time * 1.2) * spiralRadius
-      const baseY = targetPosition[1] + Math.sin(time * 0.8) * 0.4 + Math.cos(time * 1.5) * 0.3
-      const baseZ = targetPosition[2] + Math.cos(time * 1.2) * spiralRadius * 0.8
-      
-      // Dramatic entrance from far distance
-      const entranceDistance = 15
-      planeRef.current.position.x = baseX * progress + (1 - progress) * entranceDistance
-      planeRef.current.position.y = baseY * progress + (1 - progress) * 8
-      planeRef.current.position.z = baseZ * progress + (1 - progress) * -entranceDistance
-      
-      // Enhanced banking and aerobatic maneuvers
-      planeRef.current.rotation.z = Math.sin(time * 1.2) * 0.4 * progress
-      planeRef.current.rotation.y = -Math.PI / 2 + time * 0.8 * progress + Math.sin(time * 0.6) * 0.3
-      planeRef.current.rotation.x = Math.sin(time * 1.4) * 0.2 * progress
-      
-      // Scale effect for dramatic zoom
-      planeRef.current.scale.setScalar(0.8 + progress * 0.6)
+    if (planeRef.current) {
+      if (isFlying) {
+        // Much more visible entrance animation
+        const progress = Math.min(time * 0.8, 1)
+        setFlyProgress(progress)
+        
+        // Dramatic flight pattern starting from far away
+        const entranceDistance = 25
+        const spiralRadius = 3 + Math.sin(time * 0.8) * 1
+        
+        // Start from very far and fly in dramatically
+        const startX = entranceDistance
+        const startY = 10
+        const startZ = -entranceDistance
+        
+        const targetX = targetPosition[0] + Math.sin(time * 1.5) * spiralRadius
+        const targetY = targetPosition[1] + Math.sin(time * 1.2) * 0.8 + Math.cos(time * 2) * 0.5
+        const targetZ = targetPosition[2] + Math.cos(time * 1.5) * spiralRadius
+        
+        planeRef.current.position.x = startX * (1 - progress) + targetX * progress
+        planeRef.current.position.y = startY * (1 - progress) + targetY * progress
+        planeRef.current.position.z = startZ * (1 - progress) + targetZ * progress
+        
+        // Enhanced banking and aerobatic maneuvers
+        planeRef.current.rotation.z = Math.sin(time * 2) * 0.6 * progress
+        planeRef.current.rotation.y = -Math.PI / 2 + time * 1.5 * progress + Math.sin(time * 1.2) * 0.4
+        planeRef.current.rotation.x = Math.sin(time * 2.2) * 0.3 * progress
+        
+        // Scale for dramatic effect
+        planeRef.current.scale.setScalar(0.5 + progress * 1.5)
+      } else {
+        // Reset position when not flying
+        planeRef.current.position.set(50, 20, -50)
+        planeRef.current.scale.setScalar(0.1)
+        setFlyProgress(0)
+      }
     }
     
     // Ultra-fast spinning propeller
-    setPropellerRotation(time * 40)
+    setPropellerRotation(time * 60)
   })
 
-  if (!isFlying) return null
-
   return (
-    <group ref={planeRef} position={targetPosition} scale={1.5}>
+    <group ref={planeRef} position={[50, 20, -50]} scale={0.1}>
       {/* Enhanced main fuselage */}
       <mesh position={[0, 0, 0]} rotation={[0, 0, 0]} castShadow>
         <cylinderGeometry args={[0.15, 0.08, 2.5, 16]} />
@@ -146,7 +148,7 @@ const Airplane = ({ isFlying, targetPosition = [0, 3, 0] }: AirplaneProps) => {
           color="#8b4513" 
           roughness={0.7}
           transparent
-          opacity={0.7}
+          opacity={flyProgress > 0.3 ? 0.3 : 0.9}
         />
       </mesh>
       

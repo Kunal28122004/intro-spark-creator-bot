@@ -20,49 +20,58 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
     if (characterRef.current) {
       if (animationType === 'plane') {
         // Enhanced dramatic boarding animation
-        const boardingProgress = Math.min((time - 3) * 0.8, 1)
+        const boardingProgress = Math.min((time - 3) * 1.2, 1)
         if (boardingProgress > 0) {
-          // Smooth curved path to plane
+          // More dramatic movement toward plane
           const curve = Math.sin(boardingProgress * Math.PI * 0.5)
-          characterRef.current.position.x = 1 + boardingProgress * 2 * curve
-          characterRef.current.position.y = -0.5 + boardingProgress * 4 * curve
-          characterRef.current.position.z = boardingProgress * -1 * curve
-          characterRef.current.scale.setScalar(1 - boardingProgress * 0.8)
-          // Add rotation as character "flies"
-          characterRef.current.rotation.y = boardingProgress * Math.PI * 0.5
+          characterRef.current.position.x = 3 + boardingProgress * 8 * curve
+          characterRef.current.position.y = -0.5 + boardingProgress * 12 * curve
+          characterRef.current.position.z = boardingProgress * -8 * curve
+          characterRef.current.scale.setScalar(1 - boardingProgress * 0.9)
+          characterRef.current.rotation.y = boardingProgress * Math.PI
         }
       } else if (animationType === 'phone') {
-        // Enhanced phone animation with more movement
+        // Enhanced phone animation with more dramatic movement
         const phoneTime = time - 0.5
-        characterRef.current.position.y = -0.5 + Math.sin(phoneTime * 2) * 0.1
-        characterRef.current.rotation.y = Math.sin(phoneTime * 1.5) * 0.1
+        characterRef.current.position.y = -0.5 + Math.sin(phoneTime * 3) * 0.2
+        characterRef.current.rotation.y = Math.sin(phoneTime * 2) * 0.2
+        characterRef.current.scale.setScalar(1 + Math.sin(phoneTime * 4) * 0.05)
       } else if (!isAnimating) {
         // Enhanced idle animation
         characterRef.current.position.y = Math.sin(time * 1.5) * 0.05 - 0.5
         characterRef.current.rotation.y = Math.sin(time * 0.5) * 0.02
-        // Subtle breathing effect
         characterRef.current.scale.setScalar(1 + Math.sin(time * 2) * 0.005)
       }
     }
 
-    // Enhanced head movement
+    // Enhanced head movement for phone call
     if (headRef.current && animationType === 'phone') {
       const phoneTime = time - 0.5
-      headRef.current.rotation.z = Math.sin(phoneTime * 4) * 0.15 + 0.3
-      headRef.current.rotation.y = 0.4 + Math.sin(phoneTime * 2) * 0.1
+      headRef.current.rotation.z = Math.sin(phoneTime * 6) * 0.25 + 0.4
+      headRef.current.rotation.y = 0.5 + Math.sin(phoneTime * 3) * 0.15
+      headRef.current.rotation.x = Math.sin(phoneTime * 4) * 0.1
     } else if (headRef.current && !isAnimating) {
       headRef.current.rotation.z = Math.sin(time * 1.2) * 0.03
       headRef.current.rotation.y = Math.sin(time * 0.8) * 0.08
     }
 
-    // Enhanced phone animation
+    // Enhanced phone animation positioned on right side
     if (phoneRef.current && animationType === 'phone') {
       const phoneTime = time - 0.5
-      const phoneProgress = (Math.sin(phoneTime * 3) + 1) * 0.5
-      phoneRef.current.position.x = 0.3 + phoneProgress * 0.2
-      phoneRef.current.position.y = 2.2 + phoneProgress * 0.2
-      phoneRef.current.rotation.z = phoneProgress * 0.3
-      phoneRef.current.rotation.y = phoneProgress * 0.2
+      const phoneProgress = (Math.sin(phoneTime * 4) + 1) * 0.5
+      
+      // Position phone on character's right side (his right, our left when facing him)
+      phoneRef.current.position.x = 0.6 + phoneProgress * 0.3
+      phoneRef.current.position.y = 2.0 + phoneProgress * 0.4
+      phoneRef.current.position.z = 0.2 + phoneProgress * 0.2
+      
+      // Rotate phone naturally
+      phoneRef.current.rotation.z = phoneProgress * 0.4 + 0.2
+      phoneRef.current.rotation.y = phoneProgress * 0.3 + 0.1
+      phoneRef.current.rotation.x = Math.sin(phoneTime * 5) * 0.1
+      
+      // Scale animation
+      phoneRef.current.scale.setScalar(1 + phoneProgress * 0.2)
     }
   })
 
@@ -72,7 +81,7 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       scale={hovered && !isAnimating ? 1.05 : 1}
-      position={[1, -0.5, 0]}
+      position={[3, -0.5, 0]}
     >
       {/* Enhanced Head group */}
       <group ref={headRef}>
@@ -218,9 +227,9 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
         <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.1} />
       </mesh>
 
-      {/* Enhanced smartphone */}
+      {/* Enhanced smartphone with better positioning and animation */}
       {animationType === 'phone' && (
-        <group ref={phoneRef} position={[0.45, 2.3, 0]}>
+        <group ref={phoneRef} position={[0.6, 2.0, 0.2]}>
           <mesh castShadow>
             <boxGeometry args={[0.08, 0.16, 0.02]} />
             <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.1} />
@@ -230,8 +239,19 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
             <meshStandardMaterial 
               color="#4285f4" 
               emissive="#4285f4" 
-              emissiveIntensity={0.6}
+              emissiveIntensity={0.8}
               roughness={0.1} 
+            />
+          </mesh>
+          {/* Phone screen glow effect */}
+          <mesh position={[0, 0, 0.02]} castShadow>
+            <boxGeometry args={[0.05, 0.1, 0.005]} />
+            <meshStandardMaterial 
+              color="#ffffff" 
+              emissive="#ffffff" 
+              emissiveIntensity={1.2}
+              transparent
+              opacity={0.8}
             />
           </mesh>
         </group>

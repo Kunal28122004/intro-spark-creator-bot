@@ -1,4 +1,3 @@
-
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { Suspense, useState } from 'react'
@@ -19,16 +18,16 @@ const Portfolio3DIntro = () => {
     setIsAnimating(true)
     setAnimationType('phone')
     
-    // Phone call animation
+    // Longer phone call animation
     setTimeout(() => {
       setAnimationType('plane')
       setShowClouds(true)
-    }, 3000)
+    }, 4000)
     
     // Navigate after dramatic plane animation with clouds
     setTimeout(() => {
       navigate(path)
-    }, 7000)
+    }, 10000)
   }
 
   return (
@@ -91,8 +90,8 @@ const Portfolio3DIntro = () => {
           {/* Realistic Character */}
           <RealisticCharacter isAnimating={isAnimating} animationType={animationType} />
           
-          {/* Enhanced Airplane */}
-          <Airplane isFlying={animationType === 'plane'} targetPosition={[2.5, 3, 0]} />
+          {/* Enhanced Airplane with better targeting */}
+          <Airplane isFlying={animationType === 'plane'} targetPosition={[4, 4, 0]} />
           
           {/* Enhanced Clouds */}
           <Clouds isVisible={showClouds} />
