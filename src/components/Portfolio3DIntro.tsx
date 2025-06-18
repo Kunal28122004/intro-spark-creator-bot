@@ -5,12 +5,14 @@ import { Suspense, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import RealisticCharacter from './RealisticCharacter'
 import Airplane from './Airplane'
+import Clouds from './Clouds'
 import { Button } from '@/components/ui/button'
 
 const Portfolio3DIntro = () => {
   const navigate = useNavigate()
   const [isAnimating, setIsAnimating] = useState(false)
   const [animationType, setAnimationType] = useState<'phone' | 'plane' | null>(null)
+  const [showClouds, setShowClouds] = useState(false)
 
   const handleNavigation = (path: string) => {
     console.log(`${path} clicked`)
@@ -20,12 +22,13 @@ const Portfolio3DIntro = () => {
     // Phone call animation
     setTimeout(() => {
       setAnimationType('plane')
+      setShowClouds(true)
     }, 2000)
     
-    // Navigate after plane animation
+    // Navigate after plane animation with clouds
     setTimeout(() => {
       navigate(path)
-    }, 4000)
+    }, 5000)
   }
 
   return (
@@ -67,6 +70,9 @@ const Portfolio3DIntro = () => {
           
           {/* Airplane */}
           <Airplane isFlying={animationType === 'plane'} targetPosition={[2.5, 3, 0]} />
+          
+          {/* Clouds */}
+          <Clouds isVisible={showClouds} />
           
           {/* Enhanced floating particles */}
           {Array.from({ length: 20 }).map((_, i) => (

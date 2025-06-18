@@ -18,10 +18,20 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
   useFrame((state) => {
     const time = state.clock.elapsedTime
 
-    if (characterRef.current && !isAnimating) {
-      // Gentle breathing animation when not animating
-      characterRef.current.position.y = Math.sin(time * 1.2) * 0.03
-      characterRef.current.rotation.y = Math.sin(time * 0.4) * 0.015
+    if (characterRef.current) {
+      if (animationType === 'plane') {
+        // Character boarding animation - move towards plane
+        const boardingProgress = Math.min((time - 2) * 1.5, 1)
+        if (boardingProgress > 0) {
+          characterRef.current.position.x = 0.5 + boardingProgress * 1.5
+          characterRef.current.position.y = -0.5 + boardingProgress * 3.5
+          characterRef.current.scale.setScalar(1 - boardingProgress * 0.7)
+        }
+      } else if (!isAnimating) {
+        // Gentle breathing animation when not animating
+        characterRef.current.position.y = Math.sin(time * 1.2) * 0.03 - 0.5
+        characterRef.current.rotation.y = Math.sin(time * 0.4) * 0.015
+      }
     }
 
     // Head movement during phone animation
@@ -48,7 +58,7 @@ const RealisticCharacter = ({ isAnimating, animationType }: RealisticCharacterPr
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       scale={hovered && !isAnimating ? 1.02 : 1}
-      position={[-1, -0.5, 0]}
+      position={[0.5, -0.5, 0]}
     >
       {/* Head group for better animation control */}
       <group ref={headRef}>
