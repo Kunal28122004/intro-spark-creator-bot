@@ -71,14 +71,6 @@ class PortfolioAnimation {
                 character.style.transform = `translateX(100px) scale(${1 + Math.sin(Date.now() * 0.002) * 0.02})`;
             }
         }, 50);
-
-        // Propeller spinning
-        const propeller = document.querySelector('.propeller');
-        if (propeller) {
-            setInterval(() => {
-                propeller.style.transform = `rotate(${Date.now() * 0.1}deg)`;
-            }, 16);
-        }
     }
 
     handleNavigation(page, button) {
@@ -94,20 +86,12 @@ class PortfolioAnimation {
         const animationStatus = document.getElementById('animationStatus');
         animationStatus.textContent = '🎬 Animation starting...';
 
-        // Determine animation type
-        const animationType = this.getAnimationType(page);
-        
-        if (animationType === 'phone') {
+        // Only phone animation for projects, simple loading for others
+        if (page === 'projects') {
             this.startPhoneAnimation(page);
         } else {
-            this.startPlaneAnimation(page);
+            this.startSimpleAnimation(page);
         }
-    }
-
-    getAnimationType(page) {
-        // Alternate between phone and plane animations
-        const phonePages = ['projects'];
-        return phonePages.includes(page) ? 'phone' : 'plane';
     }
 
     startPhoneAnimation(page) {
@@ -127,62 +111,19 @@ class PortfolioAnimation {
         }, 1000);
         
         setTimeout(() => {
-            animationStatus.textContent = '✈️ Preparing for flight...';
-            this.transitionToPlane(page);
+            animationStatus.textContent = '✨ Loading project...';
+            this.completeNavigation(page);
         }, 3000);
     }
 
-    transitionToPlane(page) {
-        const phone = document.getElementById('phone');
-        const airplane = document.getElementById('airplane');
-        const clouds = document.getElementById('clouds');
-        const character = document.getElementById('character');
+    startSimpleAnimation(page) {
         const animationStatus = document.getElementById('animationStatus');
         
-        // Hide phone
-        phone.classList.remove('active');
-        
-        // Show airplane and start flying
-        airplane.classList.add('active');
-        character.classList.remove('phone-animation');
-        character.classList.add('plane-animation');
-        
-        // Show clouds
-        setTimeout(() => {
-            clouds.classList.add('active');
-            animationStatus.textContent = '☁️ Flying through clouds...';
-        }, 2000);
-        
-        // Complete navigation
-        setTimeout(() => {
-            this.completeNavigation(page);
-        }, 6000);
-    }
-
-    startPlaneAnimation(page) {
-        const airplane = document.getElementById('airplane');
-        const clouds = document.getElementById('clouds');
-        const character = document.getElementById('character');
-        const animationStatus = document.getElementById('animationStatus');
-        
-        // Start plane animation immediately
-        airplane.classList.add('active');
-        character.classList.add('plane-animation');
-        
-        animationStatus.textContent = '✈️ Taking off...';
-        
-        setTimeout(() => {
-            clouds.classList.add('active');
-            animationStatus.textContent = '☁️ Soaring through clouds...';
-        }, 2000);
-        
-        setTimeout(() => {
-            animationStatus.textContent = '🌟 Almost there...';
-        }, 4000);
+        animationStatus.textContent = '✨ Preparing experience...';
         
         setTimeout(() => {
             this.completeNavigation(page);
-        }, 6000);
+        }, 2000);
     }
 
     completeNavigation(page) {

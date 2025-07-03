@@ -30,7 +30,7 @@
                 <div class="nav-buttons">
                     <button class="nav-btn btn-enter" data-page="about">
                         <span class="btn-text">Enter My World</span>
-                        <span class="btn-loading">✈️ Flying...</span>
+                        <span class="btn-loading">🌟 Loading...</span>
                     </button>
                     
                     <button class="nav-btn btn-projects" data-page="projects">
@@ -40,12 +40,12 @@
                     
                     <button class="nav-btn btn-accomplishments" data-page="accomplishments">
                         <span class="btn-text">Accomplishments</span>
-                        <span class="btn-loading">☁️ Soaring...</span>
+                        <span class="btn-loading">⭐ Loading...</span>
                     </button>
                     
                     <button class="nav-btn btn-about" data-page="about">
                         <span class="btn-text">About Me</span>
-                        <span class="btn-loading">🌟 Magic...</span>
+                        <span class="btn-loading">✨ Loading...</span>
                     </button>
                 </div>
             </div>
@@ -53,63 +53,103 @@
             <!-- Character section -->
             <div class="character-section">
                 <div class="character" id="character">
-                    <!-- Character parts will be created with CSS -->
+                    <!-- More realistic character -->
                     <div class="character-head">
                         <div class="hair"></div>
+                        <div class="hair-sides">
+                            <div class="hair-left"></div>
+                            <div class="hair-right"></div>
+                        </div>
                         <div class="face">
-                            <div class="eye left-eye"></div>
-                            <div class="eye right-eye"></div>
+                            <div class="eye left-eye">
+                                <div class="eyeball"></div>
+                                <div class="pupil"></div>
+                            </div>
+                            <div class="eye right-eye">
+                                <div class="eyeball"></div>
+                                <div class="pupil"></div>
+                            </div>
                             <div class="glasses">
                                 <div class="lens left-lens"></div>
                                 <div class="lens right-lens"></div>
                                 <div class="bridge"></div>
+                                <div class="frame-left"></div>
+                                <div class="frame-right"></div>
+                            </div>
+                            <div class="eyebrows">
+                                <div class="eyebrow left-eyebrow"></div>
+                                <div class="eyebrow right-eyebrow"></div>
                             </div>
                             <div class="nose"></div>
+                            <div class="mouth"></div>
                             <div class="mustache"></div>
                         </div>
                         <div class="beard"></div>
+                        <div class="beard-shadow"></div>
                     </div>
                     
                     <div class="character-body">
-                        <div class="shirt"></div>
-                        <div class="blazer"></div>
+                        <div class="shirt">
+                            <div class="shirt-collar"></div>
+                            <div class="shirt-buttons">
+                                <div class="button"></div>
+                                <div class="button"></div>
+                                <div class="button"></div>
+                            </div>
+                        </div>
+                        <div class="blazer">
+                            <div class="blazer-collar"></div>
+                            <div class="blazer-button"></div>
+                            <div class="blazer-pocket"></div>
+                        </div>
                         <div class="arms">
-                            <div class="arm left-arm"></div>
-                            <div class="arm right-arm"></div>
+                            <div class="arm left-arm">
+                                <div class="arm-shadow"></div>
+                            </div>
+                            <div class="arm right-arm">
+                                <div class="arm-shadow"></div>
+                            </div>
                         </div>
                         <div class="hands">
-                            <div class="hand left-hand"></div>
-                            <div class="hand right-hand"></div>
+                            <div class="hand left-hand">
+                                <div class="thumb"></div>
+                                <div class="fingers"></div>
+                            </div>
+                            <div class="hand right-hand">
+                                <div class="thumb"></div>
+                                <div class="fingers"></div>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="character-legs">
-                        <div class="leg left-leg"></div>
-                        <div class="leg right-leg"></div>
-                        <div class="shoe left-shoe"></div>
-                        <div class="shoe right-shoe"></div>
+                        <div class="leg left-leg">
+                            <div class="leg-shadow"></div>
+                        </div>
+                        <div class="leg right-leg">
+                            <div class="leg-shadow"></div>
+                        </div>
+                        <div class="shoe left-shoe">
+                            <div class="shoe-lace"></div>
+                            <div class="shoe-sole"></div>
+                        </div>
+                        <div class="shoe right-shoe">
+                            <div class="shoe-lace"></div>
+                            <div class="shoe-sole"></div>
+                        </div>
                     </div>
+                    
+                    <!-- Character shadow -->
+                    <div class="character-shadow"></div>
                 </div>
                 
                 <!-- Phone -->
                 <div class="phone" id="phone">
-                    <div class="phone-screen"></div>
-                </div>
-                
-                <!-- Airplane -->
-                <div class="airplane" id="airplane">
-                    <div class="plane-body"></div>
-                    <div class="plane-wings"></div>
-                    <div class="plane-tail"></div>
-                    <div class="propeller"></div>
-                </div>
-                
-                <!-- Clouds -->
-                <div class="clouds" id="clouds">
-                    <div class="cloud cloud1"></div>
-                    <div class="cloud cloud2"></div>
-                    <div class="cloud cloud3"></div>
-                    <div class="cloud cloud4"></div>
+                    <div class="phone-screen">
+                        <div class="phone-reflection"></div>
+                    </div>
+                    <div class="phone-speaker"></div>
+                    <div class="phone-button"></div>
                 </div>
             </div>
         </div>
@@ -117,7 +157,7 @@
         <!-- Instructions -->
         <div class="instructions">
             <p>🖱️ Hover over character</p>
-            <p>📱 Click buttons to animate!</p>
+            <p>📱 Click buttons to explore!</p>
             <p class="animation-status" id="animationStatus">✨ Ready for action...</p>
         </div>
         
