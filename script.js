@@ -2,7 +2,6 @@
 class PortfolioAnimation {
     constructor() {
         this.isAnimating = false;
-        this.currentAnimation = null;
         this.init();
     }
 
@@ -58,6 +57,7 @@ class PortfolioAnimation {
                 animation: float ${2 + Math.random() * 3}s ease-in-out infinite;
                 animation-delay: ${Math.random() * 2}s;
                 opacity: ${0.3 + Math.random() * 0.7};
+                pointer-events: none;
             `;
             particlesContainer.appendChild(particle);
         }
@@ -87,41 +87,10 @@ class PortfolioAnimation {
         const animationStatus = document.getElementById('animationStatus');
         animationStatus.textContent = '🎬 Starting navigation...';
 
-        // Faster navigation - reduced delays
-        if (page === 'projects') {
-            this.startPhoneAnimation(page);
-        } else {
-            this.startSimpleAnimation(page);
-        }
-    }
-
-    startPhoneAnimation(page) {
-        const characterImage = document.getElementById('characterImage');
-        const phone = document.getElementById('phone');
-        const animationStatus = document.getElementById('animationStatus');
-        
-        // Show phone
-        phone.classList.add('active');
-        characterImage.classList.add('phone-animation');
-        
-        animationStatus.textContent = '📱 Connecting...';
-        
-        // Reduced timing for faster response
-        setTimeout(() => {
-            animationStatus.textContent = '📞 Connected!';
-            this.completeNavigation(page);
-        }, 1000); // Reduced from 3000 to 1000
-    }
-
-    startSimpleAnimation(page) {
-        const animationStatus = document.getElementById('animationStatus');
-        
-        animationStatus.textContent = '✨ Loading...';
-        
-        // Reduced timing for faster response
+        // Quick navigation
         setTimeout(() => {
             this.completeNavigation(page);
-        }, 800); // Reduced from 2000 to 800
+        }, 300);
     }
 
     completeNavigation(page) {
@@ -132,66 +101,54 @@ class PortfolioAnimation {
         loadingOverlay.classList.add('active');
         loadingText.textContent = 'Loading...';
         
-        // Faster page navigation
+        // Quick page navigation
         setTimeout(() => {
             loadingText.textContent = 'Welcome!';
             this.simulatePageNavigation(page);
-        }, 500); // Reduced from 1000 to 500
+        }, 200);
     }
 
     simulatePageNavigation(page) {
-        // Create new page content immediately
+        // Create new page content
         const pageContent = this.getPageContent(page);
         
-        // Create new page content
-        const newPage = document.createElement('div');
-        newPage.className = 'page-content';
-        newPage.innerHTML = pageContent;
-        
         // Replace current content
-        document.body.innerHTML = '';
-        document.body.appendChild(newPage);
+        document.body.innerHTML = pageContent;
         
-        // Add back button
+        // Add back button functionality
         this.addBackButton();
-    }
-
-    getPageTitle(page) {
-        const titles = {
-            'about': 'About Me',
-            'projects': 'My Projects',
-            'accomplishments': 'Accomplishments'
-        };
-        return titles[page] || 'My Portfolio';
     }
 
     getPageContent(page) {
         const contents = {
             'about': `
-                <div class="page-wrapper">
-                    <div class="page-header">
-                        <h1>About Kunal</h1>
-                        <p>Passionate Developer from Gujarat, India</p>
-                    </div>
-                    <div class="page-body">
-                        <div class="about-section">
-                            <h2>Who I Am</h2>
-                            <p>Hello! I'm Kunal, a passionate full-stack developer from Gujarat, India. I love creating digital experiences that make a difference in people's lives.</p>
+                <div class="page-content">
+                    <button class="back-button" onclick="location.reload()">← Back to Home</button>
+                    <div class="page-wrapper">
+                        <div class="page-header">
+                            <h1>About Kunal</h1>
+                            <p>Passionate Developer from Gujarat, India</p>
                         </div>
-                        <div class="skills-section">
-                            <h2>Skills & Technologies</h2>
-                            <div class="skills-grid">
-                                <div class="skill-card">
-                                    <h3>Frontend</h3>
-                                    <p>React, TypeScript, HTML, CSS, JavaScript</p>
-                                </div>
-                                <div class="skill-card">
-                                    <h3>Backend</h3>
-                                    <p>Node.js, Express, MongoDB, PostgreSQL</p>
-                                </div>
-                                <div class="skill-card">
-                                    <h3>Tools</h3>
-                                    <p>Git, Docker, AWS, Firebase</p>
+                        <div class="page-body">
+                            <div class="section">
+                                <h2>Who I Am</h2>
+                                <p>Hello! I'm Kunal, a passionate full-stack developer from Gujarat, India. I love creating digital experiences that make a difference in people's lives.</p>
+                            </div>
+                            <div class="section">
+                                <h2>Skills & Technologies</h2>
+                                <div class="grid">
+                                    <div class="card">
+                                        <h3>Frontend</h3>
+                                        <p>React, TypeScript, HTML, CSS, JavaScript, Vue.js</p>
+                                    </div>
+                                    <div class="card">
+                                        <h3>Backend</h3>
+                                        <p>Node.js, Express, MongoDB, PostgreSQL, Python</p>
+                                    </div>
+                                    <div class="card">
+                                        <h3>Tools</h3>
+                                        <p>Git, Docker, AWS, Firebase, Figma</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -199,38 +156,41 @@ class PortfolioAnimation {
                 </div>
             `,
             'projects': `
-                <div class="page-wrapper">
-                    <div class="page-header">
-                        <h1>My Projects</h1>
-                        <p>Innovative solutions crafted with passion</p>
-                    </div>
-                    <div class="page-body">
-                        <div class="projects-grid">
-                            <div class="project-card">
-                                <h3>E-Commerce Platform</h3>
-                                <p>Full-stack e-commerce solution with React, Node.js, and MongoDB</p>
-                                <div class="tech-tags">
-                                    <span class="tag">React</span>
-                                    <span class="tag">Node.js</span>
-                                    <span class="tag">MongoDB</span>
+                <div class="page-content">
+                    <button class="back-button" onclick="location.reload()">← Back to Home</button>
+                    <div class="page-wrapper">
+                        <div class="page-header">
+                            <h1>My Projects</h1>
+                            <p>Innovative solutions crafted with passion</p>
+                        </div>
+                        <div class="page-body">
+                            <div class="grid">
+                                <div class="card">
+                                    <h3>E-Commerce Platform</h3>
+                                    <p>Full-stack e-commerce solution with React, Node.js, and MongoDB</p>
+                                    <div class="tech-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">Node.js</span>
+                                        <span class="tag">MongoDB</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="project-card">
-                                <h3>Task Management App</h3>
-                                <p>Modern task management with real-time collaboration features</p>
-                                <div class="tech-tags">
-                                    <span class="tag">React</span>
-                                    <span class="tag">Firebase</span>
-                                    <span class="tag">TypeScript</span>
+                                <div class="card">
+                                    <h3>Task Management App</h3>
+                                    <p>Modern task management with real-time collaboration features</p>
+                                    <div class="tech-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">Firebase</span>
+                                        <span class="tag">TypeScript</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="project-card">
-                                <h3>Weather Dashboard</h3>
-                                <p>Beautiful weather app with advanced forecasting and maps</p>
-                                <div class="tech-tags">
-                                    <span class="tag">React</span>
-                                    <span class="tag">API Integration</span>
-                                    <span class="tag">Chart.js</span>
+                                <div class="card">
+                                    <h3>Weather Dashboard</h3>
+                                    <p>Beautiful weather app with advanced forecasting and maps</p>
+                                    <div class="tech-tags">
+                                        <span class="tag">React</span>
+                                        <span class="tag">API Integration</span>
+                                        <span class="tag">Chart.js</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -238,32 +198,70 @@ class PortfolioAnimation {
                 </div>
             `,
             'accomplishments': `
-                <div class="page-wrapper">
-                    <div class="page-header">
-                        <h1>Accomplishments</h1>
-                        <p>Milestones in my development journey</p>
+                <div class="page-content">
+                    <button class="back-button" onclick="location.reload()">← Back to Home</button>
+                    <div class="page-wrapper">
+                        <div class="page-header">
+                            <h1>Accomplishments</h1>
+                            <p>Milestones in my development journey</p>
+                        </div>
+                        <div class="page-body">
+                            <div class="grid">
+                                <div class="card">
+                                    <div class="icon">🏆</div>
+                                    <h3>Best Developer Award 2023</h3>
+                                    <p>Recognized for outstanding contribution to team projects</p>
+                                </div>
+                                <div class="card">
+                                    <div class="icon">🚀</div>
+                                    <h3>50+ Projects Completed</h3>
+                                    <p>Successfully delivered diverse web applications</p>
+                                </div>
+                                <div class="card">
+                                    <div class="icon">🎓</div>
+                                    <h3>AWS Certified Developer</h3>
+                                    <p>Amazon Web Services certification achieved</p>
+                                </div>
+                                <div class="card">
+                                    <div class="icon">💡</div>
+                                    <h3>Innovation Excellence</h3>
+                                    <p>Created breakthrough solutions for client challenges</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="page-body">
-                        <div class="accomplishments-grid">
-                            <div class="accomplishment-card">
-                                <div class="accomplishment-icon">🏆</div>
-                                <h3>Best Developer Award 2023</h3>
-                                <p>Recognized for outstanding contribution to team projects</p>
-                            </div>
-                            <div class="accomplishment-card">
-                                <div class="accomplishment-icon">🚀</div>
-                                <h3>50+ Projects Completed</h3>
-                                <p>Successfully delivered diverse web applications</p>
-                            </div>
-                            <div class="accomplishment-card">
-                                <div class="accomplishment-icon">🎓</div>
-                                <h3>AWS Certified Developer</h3>
-                                <p>Amazon Web Services certification achieved</p>
-                            </div>
-                            <div class="accomplishment-card">
-                                <div class="accomplishment-icon">💡</div>
-                                <h3>Innovation Excellence</h3>
-                                <p>Created breakthrough solutions for client challenges</p>
+                </div>
+            `,
+            'contact': `
+                <div class="page-content">
+                    <button class="back-button" onclick="location.reload()">← Back to Home</button>
+                    <div class="page-wrapper">
+                        <div class="page-header">
+                            <h1>Contact Me</h1>
+                            <p>Let's connect and create something amazing together</p>
+                        </div>
+                        <div class="page-body">
+                            <div class="grid">
+                                <div class="card">
+                                    <div class="icon">📧</div>
+                                    <h3>Email</h3>
+                                    <p>kunal@example.com</p>
+                                </div>
+                                <div class="card">
+                                    <div class="icon">📱</div>
+                                    <h3>Phone</h3>
+                                    <p>+91 98765 43210</p>
+                                </div>
+                                <div class="card">
+                                    <div class="icon">🌐</div>
+                                    <h3>LinkedIn</h3>
+                                    <p>linkedin.com/in/kunal-dev</p>
+                                </div>
+                                <div class="card">
+                                    <div class="icon">💻</div>
+                                    <h3>GitHub</h3>
+                                    <p>github.com/kunal-dev</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -275,129 +273,8 @@ class PortfolioAnimation {
     }
 
     addBackButton() {
-        const backButton = document.createElement('button');
-        backButton.textContent = '← Back to Home';
-        backButton.className = 'back-button';
-        backButton.style.cssText = `
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        `;
-        
-        backButton.addEventListener('click', () => {
-            location.reload(); // Simple way to go back to home
-        });
-        
-        document.body.appendChild(backButton);
-        
-        // Add page styles
-        const pageStyles = document.createElement('style');
-        pageStyles.textContent = `
-            .page-content {
-                min-height: 100vh;
-                background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4338ca 100%);
-                color: white;
-                padding: 2rem;
-                font-family: Arial, sans-serif;
-            }
-            
-            .page-wrapper {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding-top: 6rem;
-            }
-            
-            .page-header {
-                text-align: center;
-                margin-bottom: 4rem;
-            }
-            
-            .page-header h1 {
-                font-size: 3rem;
-                margin-bottom: 1rem;
-                background: linear-gradient(45deg, #ffffff, #a5b4fc);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-            
-            .page-header p {
-                font-size: 1.2rem;
-                opacity: 0.8;
-            }
-            
-            .about-section, .skills-section {
-                margin-bottom: 3rem;
-                background: rgba(255, 255, 255, 0.1);
-                padding: 2rem;
-                border-radius: 15px;
-                backdrop-filter: blur(10px);
-            }
-            
-            .skills-grid, .projects-grid, .accomplishments-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 2rem;
-                margin-top: 2rem;
-            }
-            
-            .skill-card, .project-card, .accomplishment-card {
-                background: rgba(255, 255, 255, 0.15);
-                padding: 1.5rem;
-                border-radius: 10px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                transition: transform 0.3s ease;
-            }
-            
-            .skill-card:hover, .project-card:hover, .accomplishment-card:hover {
-                transform: translateY(-5px);
-            }
-            
-            .accomplishment-icon {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-            }
-            
-            .tech-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                margin-top: 1rem;
-            }
-            
-            .tag {
-                background: rgba(59, 130, 246, 0.3);
-                padding: 0.25rem 0.75rem;
-                border-radius: 15px;
-                font-size: 0.8rem;
-                border: 1px solid rgba(59, 130, 246, 0.5);
-            }
-            
-            .back-button:hover {
-                transform: scale(1.05);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            }
-            
-            @media (max-width: 768px) {
-                .page-header h1 {
-                    font-size: 2rem;
-                }
-                
-                .skills-grid, .projects-grid, .accomplishments-grid {
-                    grid-template-columns: 1fr;
-                }
-            }
-        `;
-        
-        document.head.appendChild(pageStyles);
+        // Back button functionality is handled in the HTML content
+        console.log('Page loaded successfully');
     }
 
     showSpeechBubble() {
@@ -463,7 +340,7 @@ class PortfolioAnimation {
         const characterImage = document.getElementById('characterImage');
         
         if (width <= 768) {
-            characterImage.style.transform = 'scale(0.8)';
+            characterImage.style.transform = 'scale(0.9)';
         } else {
             characterImage.style.transform = 'scale(1)';
         }
@@ -475,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new PortfolioAnimation();
 });
 
-// Add some additional CSS animations via JavaScript
+// Add fade out animation
 const additionalStyles = document.createElement('style');
 additionalStyles.textContent = `
     @keyframes fadeOut {
@@ -491,15 +368,6 @@ additionalStyles.textContent = `
     
     .floating-particle {
         pointer-events: none;
-    }
-    
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
     }
     
     .character-image:hover img {
