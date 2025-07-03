@@ -23,14 +23,14 @@ class PortfolioAnimation {
         });
 
         // Character hover events
-        const character = document.getElementById('character');
-        character.addEventListener('mouseenter', () => {
+        const characterImage = document.getElementById('characterImage');
+        characterImage.addEventListener('mouseenter', () => {
             if (!this.isAnimating) {
                 this.showSpeechBubble();
             }
         });
 
-        character.addEventListener('mouseleave', () => {
+        characterImage.addEventListener('mouseleave', () => {
             this.hideSpeechBubble();
         });
 
@@ -65,10 +65,11 @@ class PortfolioAnimation {
 
     startIdleAnimations() {
         // Character idle breathing animation
-        const character = document.getElementById('character');
+        const characterImage = document.getElementById('characterImage');
         setInterval(() => {
             if (!this.isAnimating) {
-                character.style.transform = `translateX(100px) scale(${1 + Math.sin(Date.now() * 0.002) * 0.02})`;
+                const scale = 1 + Math.sin(Date.now() * 0.002) * 0.02;
+                characterImage.style.transform = `scale(${scale})`;
             }
         }, 50);
     }
@@ -84,9 +85,9 @@ class PortfolioAnimation {
         
         // Update animation status
         const animationStatus = document.getElementById('animationStatus');
-        animationStatus.textContent = '🎬 Animation starting...';
+        animationStatus.textContent = '🎬 Starting navigation...';
 
-        // Only phone animation for projects, simple loading for others
+        // Faster navigation - reduced delays
         if (page === 'projects') {
             this.startPhoneAnimation(page);
         } else {
@@ -95,35 +96,32 @@ class PortfolioAnimation {
     }
 
     startPhoneAnimation(page) {
-        const character = document.getElementById('character');
+        const characterImage = document.getElementById('characterImage');
         const phone = document.getElementById('phone');
         const animationStatus = document.getElementById('animationStatus');
         
         // Show phone
         phone.classList.add('active');
-        character.classList.add('phone-animation');
+        characterImage.classList.add('phone-animation');
         
-        animationStatus.textContent = '📱 Making the call...';
+        animationStatus.textContent = '📱 Connecting...';
         
-        // Phone call animation sequence
+        // Reduced timing for faster response
         setTimeout(() => {
-            animationStatus.textContent = '📞 Call connected!';
-        }, 1000);
-        
-        setTimeout(() => {
-            animationStatus.textContent = '✨ Loading project...';
+            animationStatus.textContent = '📞 Connected!';
             this.completeNavigation(page);
-        }, 3000);
+        }, 1000); // Reduced from 3000 to 1000
     }
 
     startSimpleAnimation(page) {
         const animationStatus = document.getElementById('animationStatus');
         
-        animationStatus.textContent = '✨ Preparing experience...';
+        animationStatus.textContent = '✨ Loading...';
         
+        // Reduced timing for faster response
         setTimeout(() => {
             this.completeNavigation(page);
-        }, 2000);
+        }, 800); // Reduced from 2000 to 800
     }
 
     completeNavigation(page) {
@@ -132,21 +130,17 @@ class PortfolioAnimation {
         
         // Show loading overlay
         loadingOverlay.classList.add('active');
-        loadingText.textContent = 'Loading destination...';
+        loadingText.textContent = 'Loading...';
         
-        // Simulate page navigation
+        // Faster page navigation
         setTimeout(() => {
-            loadingText.textContent = 'Welcome to ' + this.getPageTitle(page) + '!';
-            
-            setTimeout(() => {
-                // In a real app, you would navigate to the actual page
-                this.simulatePageNavigation(page);
-            }, 1500);
-        }, 1000);
+            loadingText.textContent = 'Welcome!';
+            this.simulatePageNavigation(page);
+        }, 500); // Reduced from 1000 to 500
     }
 
     simulatePageNavigation(page) {
-        // This simulates navigation - in a real app you'd use a router
+        // Create new page content immediately
         const pageContent = this.getPageContent(page);
         
         // Create new page content
@@ -413,7 +407,7 @@ class PortfolioAnimation {
             bubble.className = 'speech-bubble';
             bubble.innerHTML = `
                 <div class="bubble-content">
-                    <p>Hello! I'm Kunal, a passionate full-stack developer. Click any button to start an amazing journey!</p>
+                    <p>Hello! I'm Kunal, a passionate full-stack developer. Click any button to start exploring!</p>
                 </div>
                 <div class="bubble-tail"></div>
             `;
@@ -421,7 +415,7 @@ class PortfolioAnimation {
             bubble.style.cssText = `
                 position: absolute;
                 top: -120px;
-                left: 150px;
+                left: 50px;
                 background: white;
                 color: #333;
                 padding: 1rem;
@@ -433,7 +427,7 @@ class PortfolioAnimation {
                 animation: fadeInUp 0.3s ease-out;
             `;
             
-            document.getElementById('character').appendChild(bubble);
+            document.getElementById('characterImage').appendChild(bubble);
             
             // Add bubble tail styles
             const tailStyles = document.createElement('style');
@@ -466,12 +460,12 @@ class PortfolioAnimation {
     handleResize() {
         // Handle responsive adjustments
         const width = window.innerWidth;
-        const character = document.getElementById('character');
+        const characterImage = document.getElementById('characterImage');
         
         if (width <= 768) {
-            character.style.transform = 'translateX(0) scale(0.8)';
+            characterImage.style.transform = 'scale(0.8)';
         } else {
-            character.style.transform = 'translateX(100px)';
+            characterImage.style.transform = 'scale(1)';
         }
     }
 }
@@ -508,11 +502,11 @@ additionalStyles.textContent = `
         }
     }
     
-    .character:hover .character-head {
-        animation: headBob 0.5s ease-in-out;
+    .character-image:hover img {
+        animation: imageBob 0.5s ease-in-out;
     }
     
-    @keyframes headBob {
+    @keyframes imageBob {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-5px); }
     }
