@@ -1,24 +1,135 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>intro-spark-creator-bot</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-
-    <meta property="og:title" content="intro-spark-creator-bot" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunal's Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Animated background particles -->
+        <div class="background-particles"></div>
+        
+        <!-- Main content -->
+        <div class="main-content">
+            <!-- Left side content -->
+            <div class="left-content">
+                <div class="intro-text">
+                    <h1 class="main-title">
+                        Hi, I'm Kunal - a passionate<br>
+                        developer from Gujarat, India,<br>
+                        crafting meaningful digital<br>
+                        experiences that leave a<br>
+                        lasting impact.
+                    </h1>
+                </div>
+                
+                <!-- Navigation buttons -->
+                <div class="nav-buttons">
+                    <button class="nav-btn btn-enter" data-page="about">
+                        <span class="btn-text">Enter My World</span>
+                        <span class="btn-loading">✈️ Flying...</span>
+                    </button>
+                    
+                    <button class="nav-btn btn-projects" data-page="projects">
+                        <span class="btn-text">Meet My Projects</span>
+                        <span class="btn-loading">📱 Calling...</span>
+                    </button>
+                    
+                    <button class="nav-btn btn-accomplishments" data-page="accomplishments">
+                        <span class="btn-text">Accomplishments</span>
+                        <span class="btn-loading">☁️ Soaring...</span>
+                    </button>
+                    
+                    <button class="nav-btn btn-about" data-page="about">
+                        <span class="btn-text">About Me</span>
+                        <span class="btn-loading">🌟 Magic...</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Character section -->
+            <div class="character-section">
+                <div class="character" id="character">
+                    <!-- Character parts will be created with CSS -->
+                    <div class="character-head">
+                        <div class="hair"></div>
+                        <div class="face">
+                            <div class="eye left-eye"></div>
+                            <div class="eye right-eye"></div>
+                            <div class="glasses">
+                                <div class="lens left-lens"></div>
+                                <div class="lens right-lens"></div>
+                                <div class="bridge"></div>
+                            </div>
+                            <div class="nose"></div>
+                            <div class="mustache"></div>
+                        </div>
+                        <div class="beard"></div>
+                    </div>
+                    
+                    <div class="character-body">
+                        <div class="shirt"></div>
+                        <div class="blazer"></div>
+                        <div class="arms">
+                            <div class="arm left-arm"></div>
+                            <div class="arm right-arm"></div>
+                        </div>
+                        <div class="hands">
+                            <div class="hand left-hand"></div>
+                            <div class="hand right-hand"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="character-legs">
+                        <div class="leg left-leg"></div>
+                        <div class="leg right-leg"></div>
+                        <div class="shoe left-shoe"></div>
+                        <div class="shoe right-shoe"></div>
+                    </div>
+                </div>
+                
+                <!-- Phone -->
+                <div class="phone" id="phone">
+                    <div class="phone-screen"></div>
+                </div>
+                
+                <!-- Airplane -->
+                <div class="airplane" id="airplane">
+                    <div class="plane-body"></div>
+                    <div class="plane-wings"></div>
+                    <div class="plane-tail"></div>
+                    <div class="propeller"></div>
+                </div>
+                
+                <!-- Clouds -->
+                <div class="clouds" id="clouds">
+                    <div class="cloud cloud1"></div>
+                    <div class="cloud cloud2"></div>
+                    <div class="cloud cloud3"></div>
+                    <div class="cloud cloud4"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="instructions">
+            <p>🖱️ Hover over character</p>
+            <p>📱 Click buttons to animate!</p>
+            <p class="animation-status" id="animationStatus">✨ Ready for action...</p>
+        </div>
+        
+        <!-- Loading overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="loading-icon">🚀</div>
+                <div class="loading-text" id="loadingText">Getting ready...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
 </html>

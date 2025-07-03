@@ -1,0 +1,767 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #4338ca 100%);
+}
+
+/* Background particles */
+.background-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.background-particles::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 40% 70%, white, transparent),
+        radial-gradient(1px 1px at 90% 40%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent);
+    background-size: 200px 200px, 300px 300px, 150px 150px, 250px 250px;
+    animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Main content */
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0 4rem;
+}
+
+/* Left content */
+.left-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.intro-text {
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    background: linear-gradient(45deg, #ffffff, #a5b4fc, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.nav-btn {
+    position: relative;
+    width: 300px;
+    height: 60px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.nav-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.btn-enter {
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+}
+
+.btn-projects {
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+}
+
+.btn-accomplishments {
+    background: linear-gradient(45deg, #10b981, #06b6d4);
+}
+
+.btn-about {
+    background: linear-gradient(45deg, #f59e0b, #ef4444);
+}
+
+.btn-loading {
+    display: none;
+}
+
+.nav-btn.loading .btn-text {
+    display: none;
+}
+
+.nav-btn.loading .btn-loading {
+    display: block;
+}
+
+/* Character section */
+.character-section {
+    flex: 1;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.character {
+    position: relative;
+    width: 200px;
+    height: 400px;
+    transform: translateX(100px);
+    animation: float 3s ease-in-out infinite;
+    transition: all 0.5s ease;
+}
+
+.character:hover {
+    transform: translateX(100px) scale(1.1);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateX(100px) translateY(0px); }
+    50% { transform: translateX(100px) translateY(-10px); }
+}
+
+/* Character head */
+.character-head {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.hair {
+    position: absolute;
+    width: 70px;
+    height: 40px;
+    background: #2d1810;
+    border-radius: 50px 50px 20px 20px;
+    top: -10px;
+    left: 5px;
+}
+
+.face {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: #fdbcb4;
+    border-radius: 50%;
+    top: 10px;
+    left: 5px;
+}
+
+.eye {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    top: 25px;
+}
+
+.left-eye {
+    left: 18px;
+}
+
+.right-eye {
+    right: 18px;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #3d2914;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+}
+
+.glasses {
+    position: absolute;
+    top: 22px;
+    left: 15px;
+    width: 40px;
+    height: 15px;
+}
+
+.lens {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+}
+
+.left-lens {
+    left: 0;
+}
+
+.right-lens {
+    right: 0;
+}
+
+.bridge {
+    position: absolute;
+    width: 8px;
+    height: 2px;
+    background: #1a1a1a;
+    top: 5px;
+    left: 16px;
+}
+
+.nose {
+    position: absolute;
+    width: 4px;
+    height: 6px;
+    background: #e8a598;
+    border-radius: 50%;
+    top: 35px;
+    left: 33px;
+}
+
+.mustache {
+    position: absolute;
+    width: 12px;
+    height: 4px;
+    background: #2d1810;
+    border-radius: 50%;
+    top: 42px;
+    left: 29px;
+}
+
+.beard {
+    position: absolute;
+    width: 25px;
+    height: 20px;
+    background: #2d1810;
+    border-radius: 50%;
+    bottom: -10px;
+    left: 22px;
+}
+
+/* Character body */
+.character-body {
+    position: relative;
+    width: 100px;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.shirt {
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    background: white;
+    top: 20px;
+    left: 20px;
+    border-radius: 5px;
+}
+
+.blazer {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: #2d7d78;
+    border-radius: 10px;
+    top: 10px;
+    left: 10px;
+}
+
+.arms {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 20px;
+}
+
+.arm {
+    position: absolute;
+    width: 15px;
+    height: 50px;
+    background: #2d7d78;
+    border-radius: 10px;
+}
+
+.left-arm {
+    left: -5px;
+    transform: rotate(15deg);
+}
+
+.right-arm {
+    right: -5px;
+    transform: rotate(-15deg);
+}
+
+.hands {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    top: 60px;
+}
+
+.hand {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fdbcb4;
+    border-radius: 50%;
+}
+
+.left-hand {
+    left: -8px;
+}
+
+.right-hand {
+    right: -8px;
+}
+
+/* Character legs */
+.character-legs {
+    position: relative;
+    width: 80px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.leg {
+    position: absolute;
+    width: 20px;
+    height: 80px;
+    background: #1e3a8a;
+    border-radius: 10px;
+    top: 0;
+}
+
+.left-leg {
+    left: 15px;
+}
+
+.right-leg {
+    right: 15px;
+}
+
+.shoe {
+    position: absolute;
+    width: 25px;
+    height: 12px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    bottom: 0;
+}
+
+.left-shoe {
+    left: 12px;
+}
+
+.right-shoe {
+    right: 12px;
+}
+
+/* Phone */
+.phone {
+    position: absolute;
+    width: 20px;
+    height: 35px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    right: 200px;
+    top: 40%;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s ease;
+}
+
+.phone-screen {
+    position: absolute;
+    width: 16px;
+    height: 28px;
+    background: #4285f4;
+    border-radius: 3px;
+    top: 3px;
+    left: 2px;
+    box-shadow: 0 0 10px #4285f4;
+}
+
+.phone.active {
+    opacity: 1;
+    transform: scale(1);
+    animation: phoneCall 2s ease-in-out infinite;
+}
+
+@keyframes phoneCall {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(5deg); }
+    75% { transform: scale(1.1) rotate(-5deg); }
+}
+
+/* Airplane */
+.airplane {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    right: -100px;
+    top: 20%;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: all 0.5s ease;
+}
+
+.plane-body {
+    position: absolute;
+    width: 40px;
+    height: 8px;
+    background: #e8e8e8;
+    border-radius: 20px;
+    top: 11px;
+    left: 10px;
+}
+
+.plane-wings {
+    position: absolute;
+    width: 50px;
+    height: 4px;
+    background: #c8c8c8;
+    border-radius: 10px;
+    top: 13px;
+    left: 5px;
+}
+
+.plane-tail {
+    position: absolute;
+    width: 15px;
+    height: 8px;
+    background: #b8b8b8;
+    border-radius: 5px;
+    top: 11px;
+    right: 0;
+}
+
+.propeller {
+    position: absolute;
+    width: 3px;
+    height: 20px;
+    background: #8b4513;
+    border-radius: 10px;
+    top: 5px;
+    left: 5px;
+    animation: spin 0.1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.airplane.active {
+    opacity: 1;
+    transform: scale(1);
+    animation: flyAway 8s ease-in-out forwards;
+}
+
+@keyframes flyAway {
+    0% {
+        right: -100px;
+        top: 20%;
+        transform: scale(1);
+    }
+    100% {
+        right: 100vw;
+        top: 10%;
+        transform: scale(2);
+    }
+}
+
+/* Clouds */
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.clouds.active {
+    opacity: 1;
+}
+
+.cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.8;
+}
+
+.cloud::before,
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+}
+
+.cloud1 {
+    width: 80px;
+    height: 30px;
+    top: 20%;
+    left: 10%;
+    animation: cloudFloat 15s infinite;
+}
+
+.cloud1::before {
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    left: 10px;
+}
+
+.cloud1::after {
+    width: 60px;
+    height: 25px;
+    top: -10px;
+    right: 10px;
+}
+
+.cloud2 {
+    width: 60px;
+    height: 25px;
+    top: 40%;
+    right: 20%;
+    animation: cloudFloat 12s infinite reverse;
+}
+
+.cloud2::before {
+    width: 30px;
+    height: 30px;
+    top: -15px;
+    left: 10px;
+}
+
+.cloud2::after {
+    width: 40px;
+    height: 20px;
+    top: -8px;
+    right: 15px;
+}
+
+.cloud3 {
+    width: 70px;
+    height: 28px;
+    top: 60%;
+    left: 30%;
+    animation: cloudFloat 18s infinite;
+}
+
+.cloud3::before {
+    width: 35px;
+    height: 35px;
+    top: -18px;
+    left: 15px;
+}
+
+.cloud3::after {
+    width: 50px;
+    height: 22px;
+    top: -10px;
+    right: 10px;
+}
+
+.cloud4 {
+    width: 90px;
+    height: 32px;
+    top: 30%;
+    left: 60%;
+    animation: cloudFloat 20s infinite reverse;
+}
+
+.cloud4::before {
+    width: 45px;
+    height: 45px;
+    top: -22px;
+    left: 20px;
+}
+
+.cloud4::after {
+    width: 65px;
+    height: 28px;
+    top: -12px;
+    right: 15px;
+}
+
+@keyframes cloudFloat {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(20px) translateY(-10px); }
+    50% { transform: translateX(-10px) translateY(10px); }
+    75% { transform: translateX(15px) translateY(-5px); }
+}
+
+/* Instructions */
+.instructions {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+}
+
+.animation-status {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #ffd700;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Character animations */
+.character.phone-animation {
+    animation: phoneCallAnimation 4s ease-in-out;
+}
+
+@keyframes phoneCallAnimation {
+    0%, 100% { transform: translateX(100px) scale(1); }
+    50% { transform: translateX(100px) scale(1.1) rotate(5deg); }
+}
+
+.character.plane-animation {
+    animation: boardingAnimation 6s ease-in-out forwards;
+}
+
+@keyframes boardingAnimation {
+    0% { transform: translateX(100px) scale(1); }
+    100% { transform: translateX(400px) scale(0.1) rotate(180deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .nav-btn {
+        width: 250px;
+        height: 50px;
+        font-size: 1rem;
+    }
+    
+    .character {
+        transform: translateX(0);
+        scale: 0.8;
+    }
+    
+    .instructions {
+        position: relative;
+        margin-top: 2rem;
+    }
+}
